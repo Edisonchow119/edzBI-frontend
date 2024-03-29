@@ -17,6 +17,7 @@ pro create myapp
 
 cd myapp
 
+// macOS推荐yarn
 npm install
 
 npm run start
@@ -26,13 +27,22 @@ npm run start
 
 ---
 
-**记录项目中遇到的 bug**, 优先参考官方 issue 区: [Ant Design Pro](https://github.com/ant-design/ant-design-pro/issues)
+## Bug 记录
 
-- 项目瘦身: 移除国际化(i18n-remove)
+优先参考官方 issue 区: [Ant Design Pro](https://github.com/ant-design/ant-design-pro/issues)
 
-debug
+- 项目瘦身: i18n-remove (移除国际化 bug)
 
-1. 语法错误: SelectedLang is not defined: 请点击[这里](https://github.com/ant-design/ant-design-pro/issues/11034)
-2. 进入页面后左侧导航栏消失, 请点击[这里](https://github.com/ant-design/ant-design-pro/issues/10602)
+  1. 语法错误: SelectedLang is not defined: 请点击[这里](https://github.com/ant-design/ant-design-pro/issues/11034)
+  2. 进入页面后左侧导航栏消失, 请点击[这里](https://github.com/ant-design/ant-design-pro/issues/10602)
+
+- 大小写敏感 bug: file name 'url' differs from already included file name 'Url'; 尝试使用 Yarn 来管理依赖,因为 Yarn 在处理包名称时更加严格
+
+  1. 删除 node_modules
+  2. npm cache clean --force
+  3. yarn
+
+- 提交代码: invalid commit message format(格式 bug); 尝试规范格式,有利于帮助回溯
+  1. 推荐插件 **git-commit-plugin** , 或参照[这里](https://github.com/vuejs/core/blob/main/.github/commit-convention.md)书写提交信息.
 
 ---
