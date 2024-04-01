@@ -25,6 +25,46 @@ npm run start
 
 到这里就完成了项目初始化, 恭喜自己 🎉.
 
+## 前后端联调
+
+> 使用 openapi 快速实现前后端联调
+
+config/config.ts line: 133 - 142
+
+```bash
+// 修改schemaPath路径 为 后端的接口文档路径（json格式）
+schemaPath: "http://localhost:8101/api/v2/api-docs"
+```
+
+package.json
+
+```bash
+yarn run openapi
+```
+
+当你看到： openAPI: ✅ 成功生成 service 文件， 恭喜自己完成了**前后端联调**
+
+测试 pages/User/Login/index ; line: 91-96
+
+```bash
+useEffect(() => {
+  listChartByPageUsingPost({}).then(res => {
+    console.error('res', res)
+  })
+});
+```
+
+app.tsx line: 134 将请求地址修改成后端地址
+
+```bash
+export const request = {
+  baseURL: 'http://localhost:8101',
+  ...errorConfig,
+};
+```
+
+开发工具中的请求地址正确, 则测试通过 🎉
+
 ---
 
 ## Bug 记录
