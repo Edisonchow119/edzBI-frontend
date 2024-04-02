@@ -17,10 +17,10 @@ pro create myapp
 
 cd myapp
 
-// macOS推荐yarn
-npm install
+// 推荐使用yarn安装依赖
+yarn
 
-npm run start
+yarn run start
 ```
 
 到这里就完成了项目初始化, 恭喜自己 🎉.
@@ -65,7 +65,16 @@ export const request = {
 
 开发工具中的请求地址正确, 则测试通过 🎉
 
----
+## 项目瘦身
+
+移除文件 👉
+
+1. (folder) tests, types, mock
+2. (folder) public/icons, src/locales
+3. (folder) src/services/swagger
+4. (file) config/oneapi.json, public/pro_icon.svg, src/manifest.json, jest.config.ts
+
+> config/defaultSettings.ts line：18, 自定义网站标题
 
 ## Bug 记录
 
@@ -84,5 +93,3 @@ export const request = {
 
 - 提交代码: invalid commit message format(格式 bug); 尝试规范格式,有利于帮助回溯
   1. 推荐插件 **git-commit-plugin** , 或参照[这里](https://github.com/vuejs/core/blob/main/.github/commit-convention.md)书写提交信息.
-
----
