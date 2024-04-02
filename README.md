@@ -1,5 +1,9 @@
 # edz 的智能 BI 项目
 
+作者： Edison
+
+## 项目介绍
+
 > 一个快捷生成可视化看板的智能数据分析平台.
 
 ## 初始化
@@ -93,3 +97,18 @@ export const request = {
 
 - 提交代码: invalid commit message format(格式 bug); 尝试规范格式,有利于帮助回溯
   1. 推荐插件 **git-commit-plugin** , 或参照[这里](https://github.com/vuejs/core/blob/main/.github/commit-convention.md)书写提交信息.
+
+2024-04--03 01:03
+
+- 登录后刷新才能看到头像:
+
+  ```bash
+  // User/Login/index line: 50
+  const { initialState, refresh, setInitialState } = useModel('@@initialState');
+
+  // 登录成功后刷新 line: 80-83
+  const urlParams = new URL(window.location.href).searchParams;
+  history.push(urlParams.get('redirect') || '/');
+  refresh();
+  return;
+  ```

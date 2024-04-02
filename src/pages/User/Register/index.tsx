@@ -1,9 +1,9 @@
 import { Footer } from '@/components';
 import { listChartByPageUsingPost } from '@/services/edzbi/chartController';
-import { getLoginUserUsingGet, userLoginUsingPost } from '@/services/edzbi/userController';
+import { getLoginUserUsingGet, userRegisterUsingPost } from '@/services/edzbi/userController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
-import { Helmet, Link, history, useModel } from '@umijs/max';
+import { Helmet, history, useModel } from '@umijs/max';
 import { Tabs, message } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { useEffect, useState } from 'react';
@@ -45,9 +45,9 @@ const useStyles = createStyles(({ token }) => {
   };
 });
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const [type, setType] = useState<string>('account');
-  const { refresh, setInitialState } = useModel('@@initialState');
+  const { setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
 
   useEffect(() => {
@@ -56,36 +56,44 @@ const Login: React.FC = () => {
     });
   });
 
-  // 登录成功， 获取用户登录信息
+  // 注册成功， 获取用户注册信息
   const fetchUserInfo = async () => {
     const userInfo = await getLoginUserUsingGet();
     if (userInfo) {
       flushSync(() => {
-        setInitialState((s: any) => ({
+        setInitialState((s) => ({
           ...s,
           currentUser: userInfo,
         }));
       });
     }
   };
-
-  const handleSubmit = async (values: API.UserLoginRequest) => {
+  const handleSubmit = async (values: API.UserRegisterRequest) => {
     try {
-      // 登录
-      const res = await userLoginUsingPost(values);
+      // 校验
+      const res = await userRegisterUsingPost(values);
+      if (res.code === 40000) {
+        message.error(res.message);
+        return;
+      }
+      const { userPassword, checkPassword } = values;
+      if (userPassword !== checkPassword) {
+        message.error('两次密码不一致');
+        return;
+      }
+      // 注册
       if (res.code === 0) {
-        const defaultLoginSuccessMessage = '登录成功！';
+        const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
-        refresh();
         return;
       } else {
         message.error(res.message);
       }
     } catch (error) {
-      const defaultLoginFailureMessage = '登录失败，请重试！';
+      const defaultLoginFailureMessage = '注册失败，请重试！';
       console.log(error);
       message.error(defaultLoginFailureMessage);
     }
@@ -94,7 +102,7 @@ const Login: React.FC = () => {
     <div className={styles.container}>
       <Helmet>
         <title>
-          {'登录'}- {Settings.title}
+          {'注册'}- {Settings.title}
         </title>
       </Helmet>
       <div
@@ -112,7 +120,12 @@ const Login: React.FC = () => {
           title="EDZ | 智能BI"
           subTitle={'一个可以自动分析数据的分析工具'}
           onFinish={async (values) => {
-            await handleSubmit(values as API.UserLoginRequest);
+            await handleSubmit(values as API.UserRegisterRequest);
+          }}
+          submitter={{
+            searchConfig: {
+              submitText: '注册',
+            },
           }}
         >
           <Tabs
@@ -122,7 +135,7 @@ const Login: React.FC = () => {
             items={[
               {
                 key: 'account',
-                label: '账户密码登录',
+                label: '新用户注册',
               },
             ]}
           />
@@ -157,20 +170,26 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
+              <ProFormText.Password
+                name="checkPassword"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined />,
+                }}
+                placeholder={'请确认密码'}
+                rules={[
+                  {
+                    required: true,
+                    message: '密码是必填项！',
+                  },
+                ]}
+              />
             </>
           )}
-
-          <div
-            style={{
-              marginBottom: 24,
-            }}
-          >
-            <Link to="/user/register"> 注册 </Link>
-          </div>
         </LoginForm>
       </div>
       <Footer />
     </div>
   );
 };
-export default Login;
+export default Register;
