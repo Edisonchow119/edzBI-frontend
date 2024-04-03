@@ -112,3 +112,12 @@ export const request = {
   refresh();
   return;
   ```
+
+2024-04--03 11:53
+
+- 退出登录报错:
+
+  ```bash
+  // src/components/RightDropdown.tsx line: 46
+  await userLogoutUsingPost()
+  ```
