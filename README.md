@@ -6,6 +6,10 @@
 
 > 一个快捷生成可视化看板的智能数据分析平台.
 
+## 架构图
+
+![](https://raw.githubusercontent.com/Edisonchow119/test-image-hosting/main/BI%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg?token=GHSAT0AAAAAACPNGCNUPHIPLNA3N6NXJ4L2ZQPLT6Q)
+
 ## 初始化
 
 点击 [这里](https://pro.ant.design/docs/getting-started) 快速初始化项目, 或按照参照 👇6 步初始化项目.
@@ -33,14 +37,14 @@ yarn run start
 
 > 使用 openapi 快速实现前后端联调
 
-config/config.ts line: 133 - 142
+`config/config.ts` line: 133 - 142
 
 ```bash
 // 修改schemaPath路径 为 后端的接口文档路径（json格式）
 schemaPath: "http://localhost:8101/api/v2/api-docs"
 ```
 
-package.json
+`package.json`
 
 ```bash
 yarn run openapi
@@ -48,7 +52,7 @@ yarn run openapi
 
 当你看到： openAPI: ✅ 成功生成 service 文件， 恭喜自己完成了**前后端联调**
 
-测试 pages/User/Login/index ; line: 91-96
+测试 `pages/User/Login/index` ; line: 91-96
 
 ```bash
 useEffect(() => {
@@ -58,7 +62,7 @@ useEffect(() => {
 });
 ```
 
-app.tsx line: 134 将请求地址修改成后端地址
+`app.tsx` line: 134 将请求地址修改成后端地址
 
 ```bash
 export const request = {
@@ -80,11 +84,17 @@ export const request = {
 
 > config/defaultSettings.ts line：18, 自定义网站标题
 
+## 智能分析页开发
+
+页面内容：分析目标，上传文件（提取原始对象！）；
+
+openapi 生成接口
+
 ## Bug 记录
 
 优先参考官方 issue 区: [Ant Design Pro](https://github.com/ant-design/ant-design-pro/issues)
 
-- 项目瘦身: i18n-remove (移除国际化 bug)
+- 项目瘦身: `i18n-remove` (移除国际化 bug)
 
   1. 语法错误: SelectedLang is not defined: 请点击[这里](https://github.com/ant-design/ant-design-pro/issues/11034)
   2. 进入页面后左侧导航栏消失, 请点击[这里](https://github.com/ant-design/ant-design-pro/issues/10602)
