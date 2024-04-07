@@ -109,8 +109,8 @@ const Login: React.FC = () => {
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src="/logo.svg" />}
-          title="EDZ | 智能BI"
-          subTitle={'一个可以自动分析数据的分析工具'}
+          title="EDZ | AIGC AI系统"
+          subTitle={'一键AI生成的智能数据分析平台'}
           onFinish={async (values) => {
             await handleSubmit(values as API.UserLoginRequest);
           }}

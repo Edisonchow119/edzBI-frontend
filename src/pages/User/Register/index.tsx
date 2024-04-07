@@ -117,7 +117,7 @@ const Register: React.FC = () => {
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src="/logo.svg" />}
-          title="EDZ | 智能BI"
+          title="EDZ | AIGC AI系统"
           subTitle={'一个可以自动分析数据的分析工具'}
           onFinish={async (values) => {
             await handleSubmit(values as API.UserRegisterRequest);

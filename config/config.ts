@@ -72,7 +72,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: 'EDZ | 智能BI',
+  title: 'EDZ | AIGC AI系统',
   layout: {
     locale: true,
     ...defaultSettings,

@@ -15,7 +15,7 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'EDZ | 智能BI',
+  title: 'EDZ | AIGC AI系统',
   pwa: true,
   logo: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4',
   iconfontUrl: '',

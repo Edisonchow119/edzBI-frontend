@@ -2,19 +2,27 @@ import { genChartByAiUsingPost } from '@/services/edzbi/chartController';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Select, Space, Upload, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import React from 'react';
+import ReactECharts from 'echarts-for-react';
+import React, { useState } from 'react';
 
 /**
  * 添加图表页面
  * @returns
  */
 const AddChart: React.FC = () => {
+  const [chart, setChart] = useState<API.BiResponse>();
+  const [option, setOption] = useState<any>();
+  const [submitting, setSubmitting] = useState<boolean>(false);
   /**
    * 提交
    * @param values
    */
   const onFinish = async (values: any) => {
-    // console.log('表单内容: ', values);
+    // 避免重复提交
+    if (submitting) {
+      return;
+    }
+    setSubmitting(true);
     // todo 对接后端，上传数据
     const params = {
       ...values,
@@ -23,10 +31,22 @@ const AddChart: React.FC = () => {
     try {
       const res = await genChartByAiUsingPost(params, '', values.file.file.originFileObj);
       console.log(res);
-      message.success('分析成功');
+      if (!res.data) {
+        message.error('分析失败');
+      } else {
+        message.success('分析成功');
+        const chartOption = JSON.parse(res.data.genChart ?? '');
+        if (!chartOption) {
+          throw new Error('图表代码解析失败');
+        } else {
+          setChart(res.data);
+          setOption(chartOption);
+        }
+      }
     } catch (e: any) {
       message.error('分析失败: ', e.message);
     }
+    setSubmitting(false);
   };
   return (
     <div className="add-chart">
@@ -62,12 +82,18 @@ const AddChart: React.FC = () => {
 
         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
           <Space>
-            <Button type="primary" htmlType="submit">
-              提交
+            <Button type="primary" htmlType="submit" loading={submitting} disabled={submitting}>
+              点击生成 🚀
             </Button>
+            <Button htmlType="reset">重置 🔨</Button>
           </Space>
         </Form.Item>
       </Form>
+      <div>
+        生成图表：
+        {option && <ReactECharts option={option} />}
+      </div>
+      <div>分析结论： {chart?.genResult}</div>
     </div>
   );
 };
