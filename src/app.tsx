@@ -1,10 +1,13 @@
 import { AvatarDropdown, AvatarName, Footer, Question } from '@/components';
 import { LinkOutlined } from '@ant-design/icons';
+import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { Link, history } from '@umijs/max';
+import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import { getLoginUserUsingGet } from './services/edzbi/userController';
+
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
@@ -12,6 +15,7 @@ const loginPath = '/user/login';
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
 export async function getInitialState(): Promise<{
+  settings?: Partial<LayoutSettings>;
   currentUser?: API.LoginUserVO;
 }> {
   const fetchUserInfo = async () => {
@@ -31,9 +35,12 @@ export async function getInitialState(): Promise<{
     const currentUser = await fetchUserInfo();
     return {
       currentUser,
+      settings: defaultSettings as Partial<LayoutSettings>,
     };
   }
-  return {};
+  return {
+    settings: defaultSettings as Partial<LayoutSettings>,
+  };
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
@@ -90,7 +97,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
-    childrenRender: (children) => {
+    childrenRender: (children: any) => {
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>
@@ -99,9 +106,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             <SettingDrawer
               disableUrlParams
               enableDarkTheme
-              // settings={initialState?.settings}
+              settings={initialState?.settings}
               onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({
+                setInitialState((preInitialState: any) => ({
                   ...preInitialState,
                   settings,
                 }));
@@ -111,7 +118,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         </>
       );
     },
-    // ...initialState?.settings,
+    ...initialState?.settings,
   };
 };
 

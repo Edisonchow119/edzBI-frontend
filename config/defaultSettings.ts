@@ -10,14 +10,14 @@ const Settings: ProLayoutProps & {
   navTheme: 'light',
   // 拂晓蓝
   colorPrimary: '#1890ff',
-  layout: 'mix',
+  layout: 'top',
   contentWidth: 'Fluid',
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
   title: 'EDZ | AIGC AI系统',
   pwa: true,
-  logo: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4',
+  logo: 'https://p6-pc-sign.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_71dd29e456feb8fc54a8ff81cfe27b7f.jpeg?x-expires=1712754000&x-signature=2rKKFXACRgj3h6w8iPoudEec9zI%3D&from=2480802190',
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式

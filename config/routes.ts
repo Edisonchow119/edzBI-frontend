@@ -8,7 +8,7 @@ export default [
     ],
   },
   { path: '/', redirect: '/add_chart' },
-  { name: '创建图表', path: '/add_chart', icons: 'smile', component: './AddChart' },
+  { name: 'AI分析', path: '/add_chart', component: './AddChart' },
   {
     path: '/admin',
     icon: 'crown',

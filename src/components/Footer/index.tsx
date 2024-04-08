@@ -13,21 +13,9 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
         {
-          key: 'EDZ | AIGC AI系统',
-          title: 'EDZ | AIGC AI系统',
-          href: 'https://pro.ant.design',
-          blankTarget: true,
-        },
-        {
           key: 'github',
           title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
-          blankTarget: true,
-        },
-        {
-          key: 'EDZ | AIGC AI系统',
-          title: 'EDZ | AIGC AI系统',
-          href: 'https://ant.design',
+          href: 'https://github.com/Edisonchow119',
           blankTarget: true,
         },
       ]}
